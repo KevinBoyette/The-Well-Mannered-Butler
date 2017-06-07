@@ -27,7 +27,5 @@ def get_plugin_details():
 
 
 if __name__ == '__main__':
-    # Wait until Jenkins can be started
-    sleep(30)
     print(get_server_instances(get_admin_password()).version)
     print(get_plugin_details())
