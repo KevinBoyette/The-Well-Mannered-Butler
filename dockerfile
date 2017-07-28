@@ -2,15 +2,31 @@ from jenkins:2.46.3-alpine
 user root
 run apk add --update \
   alpine-sdk \
-  clang \
-  gtest \
-  valgrind \
+# clang \
+#  gtest \
+# valgrind \
   python \
   python-dev \
   py-pip \
   build-base \
+  # Ruby
+  ruby \
+  ruby-bigdecimal \
+  ruby-bundler \
+  ca-certificates \
+  libressl \
+  libressl-dev \
+  build-base \
+  ruby-dev \
+  R \
+  R-dev \
+  && bundle config git.allow_insecure true \
+  && gem install json foreman --no-rdoc --no-ri \
+  && gem cleanup \
+  && rm -rf /usr/lib/ruby/gems/*/cache/* \
+  # Pip
   && pip install jenkinsapi \
-  && rm -rf /var/cache/apk/*
+  && rm -rf /var/cache/apk/* 
 
 copy /bin /bin/
 run \
@@ -25,8 +41,8 @@ run \
     xunit@1.102 \
     checkstyle@3.48 \
     warnings@4.62 \
-    valgrind@0.27 \
-    cppcheck@1.21 \
+#    valgrind@0.27 \
+#   cppcheck@1.21 \
     analysis-collector@1.51 \
     ansible@0.6.2 \
   && mv ./plugins /var/jenkins_home/
