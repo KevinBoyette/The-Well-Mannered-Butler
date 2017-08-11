@@ -17,33 +17,22 @@ run apk add --update \
   libressl \
   libressl-dev \
   build-base \
+  jq \
   ruby-dev \
   R \
   R-dev \
-  && bundle config git.allow_insecure true \
-  && gem install json foreman --no-rdoc --no-ri \
-  && gem cleanup \
-  && rm -rf /usr/lib/ruby/gems/*/cache/* \
+  ; \
+
+  bundle config git.allow_insecure true; \
+  gem install json foreman --no-rdoc --no-ri; \
+  gem cleanup; \
+  rm -rf /usr/lib/ruby/gems/*/cache/* ;\
   # Pip
-  && pip install jenkinsapi \
-  && rm -rf /var/cache/apk/* 
+  pip install jenkinsapi ;\
+  rm -rf /var/cache/apk/* ;
 
 copy /bin /bin/
-run \
-  chmod 755 /bin/disable-security.sh \
-  && chmod 755 /bin/enable-security.sh \
-  && chmod 755 /bin/install_jenkins_plugins.sh \
-  && chmod 755 /bin/update-plugins.sh \
-  && mkdir -p ./plugins \
-  && install_jenkins_plugins.sh -d ./plugins -a \
-    git@3.3.0 \
-    analysis-core@1.87 \
-    xunit@1.102 \
-    checkstyle@3.48 \
-    warnings@4.62 \
-#    valgrind@0.27 \
-#   cppcheck@1.21 \
-    analysis-collector@1.51 \
-    ansible@0.6.2 \
-  && mv ./plugins /var/jenkins_home/
+copy /opt /opt/
+copy etc/setup.groovy /var/jenkins_home/init.groovy.d/setup.groovy
+run bash /usr/local/bin/install-plugins.sh < /opt/plugins.txt
 workdir /var/jenkins_home
