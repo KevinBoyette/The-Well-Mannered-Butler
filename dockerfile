@@ -7,6 +7,8 @@ run apk add --update \
 # valgrind \
   python \
   python-dev \
+  python3 \
+  python3-dev \
   py-pip \
   build-base \
   # Ruby
