@@ -1,4 +1,4 @@
-FROM jenkins:2.46.3-alpine
+FROM jenkins/jenkins:2.97-alpine
 USER root
 ENV GOPATH /go 
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
@@ -19,6 +19,6 @@ RUN apk add --no-cache --update \
 
 COPY /bin /bin/
 COPY /opt /opt/
-COPY etc/setup.groovy /var/jenkins_home/init.groovy.d/setup.groovy
+COPY etc/* /var/jenkins_home/init.groovy.d/
 RUN bash /usr/local/bin/install-plugins.sh < /opt/plugins.txt
 WORKDIR /var/jenkins_home

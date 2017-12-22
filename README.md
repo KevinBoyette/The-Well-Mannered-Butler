@@ -23,3 +23,8 @@
 
 ### Cleaning up
 * run `make clean`
+
+
+### Tips
+
+When a Jenkins instance is starting, use https://jenkins-ip:8080/script to play around with Groovy
