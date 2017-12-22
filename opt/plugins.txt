@@ -46,7 +46,6 @@ workflow-durable-task-step
 pipeline-github-lib
 built-on-column
 docker-commons
-windows-slaves
 throttle-concurrents
 copyartifact
 workflow-job
@@ -66,8 +65,6 @@ analysis-core
 bouncycastle-api
 credentials-binding
 pipeline-stage-view
-ant
-bitbucket
 checkstyle
 workflow-basic-steps
 build-timeout
@@ -105,13 +102,11 @@ sloccount
 ansible
 global-build-stats
 github-issues
-r
 golang
 performance
 groovy-postbuild
 matrix-groovy-execution-strategy
 docker-build-step
-sbt
 pipeline-utility-steps
 terraform
 simple-build-for-pipeline
@@ -123,9 +118,7 @@ workflow-remote-loader
 groovy-remote
 docker-slaves
 github-pr-comment-build
-scala-junit-name-decoder
 violation-comments-to-github
-rake
 github-pullrequest
 dependency-check-jenkins-plugin
 suppress-stack-trace
@@ -136,11 +129,9 @@ project-build-times
 valgrind
 fail-the-build-plugin
 pipeline-githubnotify-step
-rubyMetrics
 plugin-usage-plugin
 project-health-report
 cvs
-ruby
 prereq-buildstep
 github-sqs-plugin
 github-oauth

@@ -1,40 +1,24 @@
-from jenkins:2.46.3-alpine
-user root
-run apk add --update \
-  alpine-sdk \
-# clang \
-#  gtest \
-# valgrind \
-  python \
-  python-dev \
-  python3 \
-  python3-dev \
-  py-pip \
-  build-base \
-  # Ruby
-  ruby \
-  ruby-bigdecimal \
-  ruby-bundler \
-  ca-certificates \
-  libressl \
-  libressl-dev \
-  build-base \
-  jq \
-  ruby-dev \
-  R \
-  R-dev \
-  ; \
+FROM jenkins:2.46.3-alpine
+USER root
+ENV GOPATH /go 
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+RUN mkdir -p "${GOPATH}/src" "${GOPATH}/bin" && chmod -R 777 "${GOPATH}"
+RUN apk add --no-cache --update \
+	alpine-sdk \
+	python3 \
+	python3-dev \
+	build-base \
+	go \
+	ca-certificates \
+	libressl \
+	libressl-dev \
+	build-base \
+	jq \
+	; \
+	rm -rf /var/cache/apk/* ;
 
-  bundle config git.allow_insecure true; \
-  gem install json foreman --no-rdoc --no-ri; \
-  gem cleanup; \
-  rm -rf /usr/lib/ruby/gems/*/cache/* ;\
-  # Pip
-  pip install jenkinsapi ;\
-  rm -rf /var/cache/apk/* ;
-
-copy /bin /bin/
-copy /opt /opt/
-copy etc/setup.groovy /var/jenkins_home/init.groovy.d/setup.groovy
-run bash /usr/local/bin/install-plugins.sh < /opt/plugins.txt
-workdir /var/jenkins_home
+COPY /bin /bin/
+COPY /opt /opt/
+COPY etc/setup.groovy /var/jenkins_home/init.groovy.d/setup.groovy
+RUN bash /usr/local/bin/install-plugins.sh < /opt/plugins.txt
+WORKDIR /var/jenkins_home
